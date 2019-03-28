@@ -40,8 +40,8 @@ Kamino supports most block devices such as USB Drives, SATA HDDs and SSDs, SD Ca
 
 `sha256sum kamino-1.x.y.z.tgz` (where x.y.z corresponds to the version that you downloaded)
 
+If the sha256sum output matches the [expected hash totals](https://about:blank), proceed to Step 3.
 
-If the sha256sum output matches, proceed to Step 3.
 
 **Step 3:** Extract the tarball with the following command:
 
