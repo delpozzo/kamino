@@ -4,6 +4,14 @@
 
 Kamino is an integrity-based disk imaging utility for Linux.
 
+### Features
+**Drive-To-Drive Cloning**
+**Capture Image File from Drive**
+**Deploy Image File to a Single Drive**
+**Deploy Image File to Multiple Drives Simultaneously**
+**Wipe a Single Drive**
+**Wipe Multiple Drives Simultaneously**
+
 ## Compatibility
 
 ### Operating System
@@ -39,13 +47,13 @@ Example: `tar -xzvf kamino-1.0.0.0.tgz -C /home/mike`
 
 ### Running Kamino
 
-From a terminal, `cd` into the kamino folder. Execute `kamino` via `sudo` or as root:
+From a terminal, `cd` into the `kamino` folder. Execute `kamino` via `sudo` or as root:
 
 `sudo ./kamino`
 
 Kamino will start and you will be brought to the Main Menu.
 
-**Important:** On your first run of Kamino, make sure you set the directory you'd like to use for image files via the "Manage Images" selection (`m` or `M`).
+**Important:** On your first run of Kamino, make sure you set the directory you'd like to use for image files via "Manage Images" by entering `m` into the Main Menu selection followed by `c` to configure the directory.
 
 ### Capture Image
 
@@ -67,25 +75,25 @@ Enter `4` into the Main Menu selection to deploy an image file to multiple targe
 
 ### Zeroize (Single Drive)
 
-Enter `5` into the Main Menu selection to wipe a single target drive by writting all zeroes.
+Enter `5` into the Main Menu selection to wipe a single target drive by writing all zeroes.
 
 ### Zeroize (Multi-Drive)
 
-Enter `6` into the Main Menu selection to wipe multiple target drives at the same time by writting all zeroes.
+Enter `6` into the Main Menu selection to wipe multiple target drives at the same time by writing all zeroes.
 
 **Note** For multi-drive operations, the target drives you select must all be the same size.
 
 ### Manage Images
 
-Enter `m` or `M` into the Main Menu selection to manage images and configure which directory you would like to use for image files.
+Enter `m` into the Main Menu selection to manage images and configure which directory you would like to use for image files.
 
 ### About
 
-Enter `a` or `A` into the Main Menu selection to see Kamino information.
+Enter `a` into the Main Menu selection to see information about Kamino.
 
 ### Exit
 
-Enter `q` or `Q` into the Main Menu selection to exit Kamino.
+Enter `q` into the Main Menu selection to exit Kamino.
 
 ### kamino.config
 
@@ -93,27 +101,27 @@ The `kamino.config` file is located under the `kamino/res` directory. The variou
 
 **Note:** the `images_directory` parameter should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
 
-\# Block size which is utilized for dd operations
-\# Default: 64K
+# Block size which is utilized for dd operations
+# Default: 64K
 block_size 64K
 
-\# Directory where image files are stored
+# Directory where image files are stored
 images_directory /path/to/images
 
-\# Directory where temporary pids are stored 
-\# Default: /tmp
+# Directory where temporary pids are stored 
+# Default: /tmp
 tmp_directory /tmp
 
-\# gzip compression level [1-9]
-\# Default: 6
-\# 1 = fastest, lowest compression (produces largest image files)
-\# 9 = slowest, highest compression (produces smallest image files)
+# gzip compression level [1-9]
+# Default: 6
+# 1 = fastest, lowest compression (produces largest image files)
+# 9 = slowest, highest compression (produces smallest image files)
 compression_level 6
 
-\# Root filesystem protection [yes, no]
-\# Default: yes
-\# Prevents Kamino from listing the drive which the root
-\# filesystem is currently mounted to as a selectable option
+# Root filesystem protection [yes, no]
+# Default: yes
+# Prevents Kamino from listing the drive which the root
+# filesystem is currently mounted to as a selectable option
 protect_root_filesystem yes
 
 ## License
