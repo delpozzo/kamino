@@ -5,17 +5,21 @@
 Kamino is an integrity-based disk imaging utility for Linux.
 
 ### Features
-**Drive-To-Drive Cloning**
+Drive-To-Drive Cloning
 
-**Capture Image File from Drive**
+Capture Image File from Drive
 
-**Deploy Image File to a Single Drive**
+Deploy Image File to a Single Drive
 
-**Deploy Image File to Multiple Drives Simultaneously**
+Deploy Image File to Multiple Drives Simultaneously
 
-**Wipe a Single Drive**
+Wipe a Single Drive
 
-**Wipe Multiple Drives Simultaneously**
+Wipe Multiple Drives Simultaneously
+
+Automated Integrity Checking
+
+Image File Manager
 
 ## Compatibility
 
