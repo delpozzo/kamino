@@ -110,7 +110,7 @@ The `kamino.config` file is located under the `kamino/res` directory. The variou
 
 **Note:** the `images_directory` option should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
 
-&#35; Block size which is utilized for dd operations
+`&#35; Block size which is utilized for dd operations
 
 &#35; Default: 64K
 
@@ -144,7 +144,7 @@ compression_level 6
 
 &#35; filesystem is currently mounted to as a selectable option
 
-protect_root_filesystem yes
+protect_root_filesystem yes`
 
 ## License
 
