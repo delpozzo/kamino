@@ -108,7 +108,7 @@ Enter `q` into the Main Menu selection to exit Kamino.
 
 The `kamino.config` file is located under the `kamino/res` directory. The various options (and defaults) are described below. 
 
-**Note:** the `images_directory` parameter should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
+**Note:** the `images_directory` option should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
 
 &#35; Block size which is utilized for dd operations
 
