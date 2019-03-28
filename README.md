@@ -33,15 +33,17 @@ Kamino supports most block devices such as USB Drives, SATA HDDs and SSDs, SD Ca
 
 ## Installation
 
-**Step 1** Download the latest Kamino tarball from the [release folder](https://about:blank).
+**Step 1:** Download the latest Kamino tarball from the [release folder](https://about:blank).
 
-**Step 2** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://about:blank):
+
+**Step 2:** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://about:blank):
 
 `sha256sum kamino-1.x.y.z.tgz` (where x.y.z corresponds to the version that you downloaded)
 
+
 If the sha256sum output matches, proceed to Step 3.
 
-**Step 3** Extract the tarball with the following command:
+**Step 3:** Extract the tarball with the following command:
 
 `tar -xzvf kamino-1.x.y.z.tgz -C <destination directory>`
 
@@ -53,7 +55,7 @@ Example: `tar -xzvf kamino-1.0.0.0.tgz -C /home/mike`
 
 ### Running Kamino
 
-From a terminal, `cd` into the `kamino` folder. Execute `kamino` via `sudo` or as root:
+From a terminal, `cd` into the "kamino" folder. Execute `kamino` via `sudo` or as root:
 
 `sudo ./kamino`
 
@@ -63,7 +65,7 @@ Kamino will start and you will be brought to the Main Menu.
 
 ### Capture Image
 
-Enter `1` into the Main Menu selection to capture an image. 
+Enter `1` into the Main Menu selection to capture an image from a drive attached to the system.
 
 ### Clone Drive
 
@@ -77,7 +79,7 @@ Enter `3` into the Main Menu selection to deploy an image file to a single targe
 
 Enter `4` into the Main Menu selection to deploy an image file to multiple target drives at the same time.
 
-**Note** For multi-drive operations, the target drives you select must all be the same size.
+**Note:** For multi-drive operations, the target drives you select must all be the same size.
 
 ### Zeroize (Single Drive)
 
@@ -87,7 +89,7 @@ Enter `5` into the Main Menu selection to wipe a single target drive by writing 
 
 Enter `6` into the Main Menu selection to wipe multiple target drives at the same time by writing all zeroes.
 
-**Note** For multi-drive operations, the target drives you select must all be the same size.
+**Note:** For multi-drive operations, the target drives you select must all be the same size.
 
 ### Manage Images
 
@@ -100,6 +102,7 @@ Enter `a` into the Main Menu selection to see information about Kamino.
 ### Exit
 
 Enter `q` into the Main Menu selection to exit Kamino.
+
 
 ### kamino.config
 
