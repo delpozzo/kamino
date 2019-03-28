@@ -6,10 +6,15 @@ Kamino is an integrity-based disk imaging utility for Linux.
 
 ### Features
 **Drive-To-Drive Cloning**
+
 **Capture Image File from Drive**
+
 **Deploy Image File to a Single Drive**
+
 **Deploy Image File to Multiple Drives Simultaneously**
+
 **Wipe a Single Drive**
+
 **Wipe Multiple Drives Simultaneously**
 
 ## Compatibility
@@ -101,8 +106,9 @@ The `kamino.config` file is located under the `kamino/res` directory. The variou
 
 **Note:** the `images_directory` parameter should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
 
-# Block size which is utilized for dd operations
-# Default: 64K
+\# Block size which is utilized for dd operations
+
+\# Default: 64K
 block_size 64K
 
 # Directory where image files are stored
