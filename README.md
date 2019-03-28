@@ -33,18 +33,15 @@ Kamino supports most block devices such as USB Drives, SATA HDDs and SSDs, SD Ca
 
 ## Installation
 
-**Step 1**
-Download the latest Kamino tarball from the [release folder](https://about:blank).
+**Step 1** Download the latest Kamino tarball from the [release folder](https://about:blank).
 
-**Step 2**
-Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://about:blank):
+**Step 2** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://about:blank):
 
 `sha256sum kamino-1.x.y.z.tgz` (where x.y.z corresponds to the version that you downloaded)
 
 If the sha256sum output matches, proceed to Step 3.
 
-**Step 3**
-Extract the tarball with the following command:
+**Step 3** Extract the tarball with the following command:
 
 `tar -xzvf kamino-1.x.y.z.tgz -C <destination directory>`
 
@@ -111,26 +108,39 @@ The `kamino.config` file is located under the `kamino/res` directory. The variou
 **Note:** the `images_directory` parameter should be set via "Manage Images" within Kamino. All others can be edited in this file directly.
 
 &#35; Block size which is utilized for dd operations
+
 &#35; Default: 64K
+
 block_size 64K
 
 &#35; Directory where image files are stored
+
 images_directory /path/to/images
 
 &#35; Directory where temporary pids are stored 
+
 &#35; Default: /tmp
+
 tmp_directory /tmp
 
 &#35; gzip compression level [1-9]
+
 &#35; Default: 6
+
 &#35; 1 = fastest, lowest compression (produces largest image files)
+
 &#35; 9 = slowest, highest compression (produces smallest image files)
+
 compression_level 6
 
 &#35; Root filesystem protection [yes, no]
+
 &#35; Default: yes
+
 &#35; Prevents Kamino from listing the drive which the root
+
 &#35; filesystem is currently mounted to as a selectable option
+
 protect_root_filesystem yes
 
 ## License
