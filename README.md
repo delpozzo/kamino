@@ -17,7 +17,7 @@ Wipe a Single Drive
 
 Wipe Multiple Drives Simultaneously
 
-Automated Integrity Checking
+Automated Integrity Checking of Image Files
 
 Image File Manager
 
