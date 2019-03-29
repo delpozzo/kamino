@@ -33,14 +33,14 @@ Kamino supports most block devices such as USB Drives, SATA HDDs and SSDs, SD Ca
 
 ## Installation
 
-**Step 1:** Download the latest Kamino tarball from the [release folder](https://about:blank).
+**Step 1:** Download the latest Kamino tarball from the [release folder](https://github.com/delpozzo/kamino/blob/master/release).
 
 
-**Step 2:** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://about:blank):
+**Step 2:** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://github.com/delpozzo/kamino/blob/master/release/HASHTOTALS.md):
 
 `sha256sum kamino-1.x.y.z.tgz` (where x.y.z corresponds to the version that you downloaded)
 
-If the sha256sum output matches the [expected hash totals](https://about:blank), proceed to Step 3.
+If the sha256sum output matches the [expected hash totals](https://github.com/delpozzo/kamino/blob/master/release/HASHTOTALS.md), proceed to Step 3.
 
 
 **Step 3:** Extract the tarball with the following command:
