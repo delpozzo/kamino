@@ -38,14 +38,14 @@ Kamino supports most block devices such as USB Drives, SATA HDDs and SSDs, SD Ca
 
 **Step 2:** Verify the integrity of the Kamino tarball by running the following command and comparing the output to the [expected hash totals](https://github.com/delpozzo/kamino/blob/master/release/HASHTOTALS.md):
 
-`sha256sum kamino-1.x.y.z.tgz` (where x.y.z corresponds to the version that you downloaded)
+`sha256sum kamino-1.x.y.tgz` (where x.y corresponds to the version that you downloaded)
 
 If the sha256sum output matches the [expected hash totals](https://github.com/delpozzo/kamino/blob/master/release/HASHTOTALS.md), proceed to Step 3.
 
 
 **Step 3:** Extract the tarball with the following command:
 
-`tar -xzvf kamino-1.x.y.z.tgz -C <destination directory>`
+`tar -xzvf kamino-1.x.y.tgz -C <destination directory>`(where x.y corresponds to the version that you downloaded)
 
 This will create a folder titled "kamino" inside the `<destination directory>`
 
