@@ -1,3 +1,3 @@
 ### kamino-1.0.0.tgz
-**sha256sum:**
-`<tbd>`
+**md5sum:** `<tbd>`
+**sha256sum:** `<tbd>`
