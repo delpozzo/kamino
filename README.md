@@ -49,7 +49,7 @@ If the sha256sum output matches the [expected hash totals](https://github.com/de
 
 This will create a folder titled "kamino" inside the `<destination directory>`
 
-Example: `tar -xzvf kamino-1.0.0.0.tgz -C /home/mike`
+Example: `tar -xzvf kamino-1.0.0.tgz -C /home/mike`
 
 ## Usage
 
