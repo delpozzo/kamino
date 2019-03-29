@@ -63,6 +63,14 @@ Kamino will start and you will be brought to the Main Menu.
 
 **Important:** On your first run of Kamino, make sure you set the directory you'd like to use for image files via "Manage Images" by entering `m` into the Main Menu selection followed by `c` to configure the directory.
 
+**Note:** If you cloned this repo and are running Kamino from the `src` directory, make sure the execute bit is set for the scripts:
+
+```
+cd kamino
+chmod +x kamino
+chmod +x res/scripts/*
+```
+
 ### Capture Image
 
 Enter `1` into the Main Menu selection to capture an image from a drive attached to the system.
