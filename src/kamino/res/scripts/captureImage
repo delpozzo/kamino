@@ -1,0 +1,327 @@
+#!/bin/bash
+
+###########################################################################
+#          Title: Kamino: Capture Image
+#         Author: Mike Del Pozzo
+#    Description: This script will capture a compressed image file of the
+#                 selected target drive.
+#        Version: 1.0.0
+#           Date: 16 January 2019
+#        Website: https://github.com/delpozzo/kamino
+#        License: GPLv3 (see LICENSE)
+#
+#    Kamino Copyright (C) 2019 Mike Del Pozzo
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    any later version.
+###########################################################################
+
+targetDrive=''
+imageFilename=''
+imageFile=''
+fileExtension='.img.gz'
+scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+kaminoConfig="$scriptDir/../kamino.config"
+imageDir=$(grep 'images_directory' $kaminoConfig | cut -d ' ' -f2)
+blockSize=$(grep 'block_size' $kaminoConfig | cut -d ' ' -f2)
+compressionLevel=$(grep 'compression_level' $kaminoConfig | cut -d ' ' -f2)
+tmpDir=$(grep 'tmp_directory' $kaminoConfig | cut -d ' ' -f2)
+tmpPID="$tmpDir/captureImage-$(cat /dev/urandom  |tr -dc 'a-zA-Z0-9' |fold -w 8 |head -n1).pid"
+protectRootFilesystem=$(grep 'protect_root_filesystem' $kaminoConfig | cut -d ' ' -f2)
+if [ "$protectRootFilesystem" = 'no' ]; then
+  rootPartition=/dev/null
+else
+  rootPartition=$(mount |grep 'on / type' |grep -o 'sd[a-z]')
+fi
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;36m'
+NOCOLOR='\033[0m'
+
+###########################################################################
+
+displaySplash() {
+  echo ''
+  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' ---------------------------'
+  echo ' C A P T U R E  I M A G E'
+  echo ''
+}
+
+###########################################################################
+
+getDriveInfo() {
+  local driveSectors=$(cat /sys/block/$1/size | awk '{$1=$1};1')
+  local sectorSize=$(cat /sys/block/$1/queue/hw_sector_size | awk '{$1=$1};1')
+  local driveVendor=$(cat /sys/block/$1/device/vendor | awk '{$1=$1};1')
+  local driveModel=$(cat /sys/block/$1/device/model | awk '{$1=$1};1')
+  local driveSize=$(awk -v var1="$driveSectors" -v var2="$sectorSize" 'BEGIN {print var1*var2/1000000000}')
+
+  echo  "/dev/$1  $driveSize GB  $driveVendor $driveModel"
+}
+
+###########################################################################
+
+createChecksum() {
+  echo ''
+  echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Generating sha256sum for ${BLUE}$imageFile${NOCOLOR}"
+  echo '           This may take a while depending on the size of the image...'
+  echo ''
+
+  cd $imageDir > /dev/null 2>&1
+  sha256sum $imageFilename > $imageFilename.sha256 2>/dev/null
+
+  if [ $? -eq 0 ]; then
+    echo '----------------------------------------------------------------'
+    cat $imageFile.sha256 |cut -d " " -f1
+    echo '----------------------------------------------------------------'
+  else
+    echo -e "${RED}!!!ERROR!!!${NOCOLOR} sha256sum could not be generated."
+  fi
+}
+
+###########################################################################
+
+captureImage() {
+  local ddCommand="dd if=$targetDrive bs=$blockSize conv=noerror,sync | gzip -$compressionLevel -c > $imageFile"
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    echo -e "You've selected to capture an image of ${BLUE}$targetDrive${NOCOLOR}"
+    echo -e "to ${BLUE}$imageFile${NOCOLOR} with the following command:"
+    echo ''
+    echo "  $ddCommand"
+    echo ''
+    echo 'Do you wish to proceed?'
+    echo ''
+    echo -e ' [ Y ]\tYes'
+    echo -e ' [ N ]\tNo'
+    echo -e ' [ Q ]\tExit to Main Menu'
+
+    echo ''
+    echo 'Enter selection: '
+
+    read userInput
+
+    if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+      rm -f $imageFile > /dev/null 2>&1
+      clear
+      echo ''
+      echo 'Exiting Capture Image...'
+      echo ''
+      exit 1
+
+    elif [ "$userInput" = 'n' ] || [ "$userInput" = 'N' ]; then
+      rm -f $imageFile > /dev/null 2>&1
+      targetDrive=''
+      imageFile=''
+      clear
+      return
+
+    elif [ "$userInput" = 'y' ] || [ "$userInput" = 'Y' ]; then
+
+      bash -c "$ddCommand & jobs -p > $tmpPID"
+
+      while true; do
+        clear
+        displaySplash
+
+        echo "  $ddCommand"
+        echo ''
+        echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Image capture is now in progress. This may take a while..."
+        echo ''
+
+        kill -s USR1 $(cat $tmpPID) > /dev/null 2>&1
+
+        if [ $? -ne 0 ]; then
+          rm -f $tmpPID > /dev/null 2>&1
+          break
+        fi
+
+        sleep 3
+      done
+
+      sync
+      createChecksum
+
+      echo ''
+      echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Image capture complete. Press enter to return to main menu..."
+      echo ''
+
+      read userInput
+
+      exit 0
+
+    else
+      echo ''
+      echo 'Invalid selection, try again...'
+      sleep 2
+      continue
+    fi
+  done
+}
+
+###########################################################################
+
+selectImageFile() {
+  local userInput
+
+   while true; do
+    clear
+    displaySplash
+
+    echo -e "Selected drive: ${BLUE}$targetDrive${NOCOLOR}"
+    echo ''
+    echo 'Enter a name for the image: '
+    echo ''
+    read userInput
+
+    ls $imageDir > /dev/null 2>&1
+
+    if [ $? -ne 0 ]; then
+      clear
+      displaySplash
+
+      echo -e "${RED}!!!ERROR!!!${NOCOLOR} Image directory ${BLUE}$imageDir${NOCOLOR} does not exist."
+      echo ''
+      echo 'Configure the images directory via Main Menu -> Manage Images and try again.'
+      echo ''
+      echo -e "Alternatively, you can edit the ${BLUE}images_directory${NOCOLOR} option in ${BLUE}kamino.config${NOCOLOR} directly."
+      echo ''
+      echo 'Press enter to return to main menu...'
+      sleep 2
+      read userInput
+      exit 1
+    fi
+
+    imageFilename="$userInput$fileExtension"
+    imageFile="$imageDir/$userInput$fileExtension"
+
+    ls $imageFile > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+      echo ''
+      echo 'File already exists, try again...'
+      imageFile=''
+      sleep 2
+      continue
+    fi
+
+    touch $imageFile > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+      captureImage
+      return
+
+    else
+      imageFile=''
+      echo ''
+      echo 'Invalid filename, try again...'
+      sleep 2
+      continue
+    fi
+  done
+}
+
+###########################################################################
+
+listDrives() {
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    IFS=$'\n'
+    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |grep -v "$rootPartition" |sort -u))
+    unset IFS
+
+    if [ ${#driveArray[@]} -gt 0 ]; then
+      echo -e "Choose a ${BLUE}source drive${NOCOLOR} from the list below:"
+      echo ''
+
+      for ((i=0; i<${#driveArray[@]}; i++))
+      do
+        local driveInfo=$(getDriveInfo ${driveArray[i]})
+        echo -e " [ $(($i+1)) ]\t$driveInfo"
+      done
+
+      echo ''
+      echo 'Or select from the following options:'
+      echo ''
+      echo -e ' [ R ]\tRefresh Drive List'
+      echo -e ' [ Q ]\tExit to Main Menu'
+
+      echo ''
+      echo 'Enter selection: '
+
+      read userInput
+
+      if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+        clear
+        echo ''
+        echo 'Exiting Capture Image...'
+        echo ''
+        exit 1
+
+      elif [ "$userInput" = 'r' ] || [ "$userInput" = 'R' ]; then
+        clear
+        continue
+
+      elif [[ "$userInput" =~ ^[0-9]+$ ]] && [ "$userInput" -ge 1 -a "$userInput" -le ${#driveArray[@]} ]; then
+        targetDrive="/dev/${driveArray[$((userInput-1))]}"
+        selectImageFile
+
+      else
+        echo ''
+        echo 'Invalid selection, try again...'
+        sleep 2
+        continue
+      fi
+
+    else
+      echo 'No drives have been discovered on this system. Please attach a drive and try again.'
+      echo ''
+      echo -e ' [ R ]\tRefresh Drive List'
+      echo -e ' [ Q ]\tExit to Main Menu'
+
+      echo ''
+      echo 'Enter selection: '
+
+      read userInput
+
+      if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+        clear
+        echo ''
+        echo 'Exiting Capture Image...'
+        echo ''
+        exit 1
+
+      elif [ "$userInput" = 'r' ] || [ "$userInput" = 'R' ]; then
+        clear
+        continue
+
+      else
+        echo ''
+        echo 'Invalid selection, try again...'
+        sleep 2
+        continue
+      fi
+    fi
+  done
+}
+
+###########################################################################
+
+if [ "$(id -u)" != 0 ]; then
+  echo 'This script must be run with sudo or as root!'
+  exit 1
+fi
+
+clear
+listDrives

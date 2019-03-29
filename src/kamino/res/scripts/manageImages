@@ -1,0 +1,302 @@
+#!/bin/bash
+
+###########################################################################
+#          Title: Kamino: Manage Images
+#         Author: Mike Del Pozzo
+#    Description: Image management script for Kamino.
+#        Version: 1.0.0
+#           Date: 16 January 2019
+#        Website: https://github.com/delpozzo/kamino
+#        License: GPLv3 (see LICENSE)
+#
+#    Kamino Copyright (C) 2019 Mike Del Pozzo
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    any later version.
+###########################################################################
+
+targetDrive=''
+imageFile=''
+fileExtension='.img.gz'
+scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+kaminoConfig="$scriptDir/../kamino.config"
+imageDir=$(grep 'images_directory' $kaminoConfig | cut -d ' ' -f2)
+blockSize=$(grep 'block_size' $kaminoConfig | cut -d ' ' -f2)
+tmpDir=$(grep 'tmp_directory' $kaminoConfig | cut -d ' ' -f2)
+tmpPID="$tmpDir/deployImage-$(cat /dev/urandom  |tr -dc 'a-zA-Z0-9' |fold -w 8 |head -n1).pid"
+returnFlag='false'
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;36m'
+NOCOLOR='\033[0m'
+
+###########################################################################
+
+displaySplash() {
+  echo ''
+  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' ---------------------------'
+  echo ' M A N A G E   I M A G E S'
+  echo ''
+}
+
+###########################################################################
+
+verifyChecksum() {
+  local userInput
+
+  clear
+  displaySplash
+
+  echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Verifying sha256sum for ${BLUE}$imageFile${NOCOLOR}"
+  echo '           This may take a while depending on the size of the image...'
+  echo ''
+
+  cd $imageDir > /dev/null 2>&1
+  sha256sum -c $imageFile.sha256 > /dev/null 2>&1
+
+  if [ $? -eq 0 ]; then
+    echo '----------------------------------------------------------------'
+    cat $imageFile.sha256 |cut -d " " -f1
+    echo '----------------------------------------------------------------'
+    echo ''
+    echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Integrity check passed."
+  else
+    echo -e "${RED}!!!WARNING!!!${NOCOLOR} Integrity check failed."
+  fi
+
+  echo ''
+  echo ''
+  echo 'Press enter to continue...'
+  sleep 2
+  read userInput
+}
+
+###########################################################################
+
+configureDirectory() {
+  local userInput
+
+  clear
+  displaySplash
+
+  echo 'Enter the directory where Kamino will read and write drive images: '
+  echo ''
+  read userInput
+
+  ls $userInput > /dev/null 2>&1
+
+  if [ $? -ne 0 ]; then
+    clear
+    displaySplash
+
+    echo -e "${RED}!!!ERROR!!!${NOCOLOR} The directory ${BLUE}$userInput${NOCOLOR} does not exist."
+    echo 'Please input a directory that already exists on the filesystem.'
+    echo ''
+    echo ''
+    echo 'Press enter to continue...'
+    sleep 2
+    read userInput
+
+  else
+    sed -i -r "s^images_directory.*^images_directory $userInput^" $kaminoConfig
+    imageDir=$(grep 'images_directory' $kaminoConfig | cut -d ' ' -f2)
+  fi
+}
+
+###########################################################################
+
+deleteImage() {
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    echo -e "You've chosen to permanently delete ${BLUE}$imageFile${NOCOLOR}"
+    echo ''
+    echo -e "${RED}!!!WARNING!!!${NOCOLOR} This action cannot be undone."
+    echo ''
+    echo 'Do you wish to proceed?'
+    echo ''
+    echo -e ' [ Y ]\tYes'
+    echo -e ' [ N ]\tNo'
+    echo ''
+    echo 'Enter selection: '
+
+    read userInput
+
+    if [ "$userInput" = 'y' ] || [ "$userInput" = 'Y' ]; then
+      rm -f $imageFile > /dev/null 2>&1
+      rm -f $imageFile.sha256 > /dev/null 2>&1
+      return
+
+    elif [ "$userInput" = 'n' ] || [ "$userInput" = 'N' ]; then
+      return
+
+    else
+      echo ''
+      echo 'Invalid selection, try again...'
+      sleep 2
+      continue
+    fi
+  done
+}
+
+###########################################################################
+
+manageImage() {
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    echo -e "Selected image: ${BLUE}$imageFile${NOCOLOR}"
+    echo ''
+    echo -e ' [ V ]\tVerify Image Integrity'
+    echo -e ' [ D ]\tDelete Image'
+    echo -e ' [ C ]\tCancel'
+    echo -e ' [ Q ]\tExit to Main Menu'
+    echo ''
+    echo 'Enter selection: '
+
+    read userInput
+
+    if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+      clear
+      echo ''
+      echo 'Exiting Manage Images...'
+      echo ''
+      exit 1
+
+    elif [ "$userInput" = 'c' ] || [ "$userInput" = 'C' ]; then
+      return
+
+    elif [ "$userInput" = 'd' ] || [ "$userInput" = 'D' ]; then
+      deleteImage
+      return
+
+    elif [ "$userInput" = 'v' ] || [ "$userInput" = 'V' ]; then
+      verifyChecksum
+      return
+
+    else
+      echo ''
+      echo 'Invalid selection, try again...'
+      sleep 2
+      continue
+    fi
+  done
+}
+
+###########################################################################
+
+listImages() {
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    IFS=$'\n'
+    local imageArray=($(cd $imageDir 2>/dev/null && ls -d *$fileExtension 2>/dev/null |sort -r -u))
+    unset IFS
+
+    if [ ${#imageArray[@]} -gt 0 ]; then
+      echo -e "Images Directory: ${BLUE}$imageDir${NOCOLOR}"
+      echo ''
+      echo -e "Choose an image to manage from the list below:"
+      echo ''
+
+      for ((i=0; i<${#imageArray[@]}; i++))
+      do
+        echo -e " [ $(($i+1)) ]\t${imageArray[i]}"
+      done
+
+      echo ''
+      echo 'Or select from the following options:'
+      echo ''
+      echo -e ' [ C ]\tConfigure Images Directory'
+      echo -e ' [ R ]\tRefresh Image List'
+      echo -e ' [ Q ]\tExit to Main Menu'
+      echo ''
+      echo 'Enter selection: '
+
+      read userInput
+
+      if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+        clear
+        echo ''
+        echo 'Exiting Manage Images...'
+        echo ''
+        exit 1
+
+      elif [ "$userInput" = 'c' ] || [ "$userInput" = 'C' ]; then
+        clear
+        configureDirectory
+        continue
+
+      elif [ "$userInput" = 'r' ] || [ "$userInput" = 'R' ]; then
+        clear
+        continue
+
+      elif [[ "$userInput" =~ ^[0-9]+$ ]] && [ "$userInput" -ge 1 -a "$userInput" -le ${#imageArray[@]} ]; then
+        imageFile="$imageDir/${imageArray[$((userInput-1))]}"
+        manageImage
+
+      else
+        echo ''
+        echo 'Invalid selection, try again...'
+        sleep 2
+        continue
+      fi
+
+    else
+      echo -e "No image files have been discovered in ${BLUE}$imageDir${NOCOLOR}"
+      echo ''
+      echo -e ' [ C ]\tConfigure Images Directory'
+      echo -e ' [ R ]\tRefresh Image List'
+      echo -e ' [ Q ]\tExit to Main Menu'
+      echo ''
+      echo 'Enter selection: '
+
+      read userInput
+
+      if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+        clear
+        echo ''
+        echo 'Exiting Deploy Image...'
+        echo ''
+        exit 1
+
+      elif [ "$userInput" = 'c' ] || [ "$userInput" = 'C' ]; then
+        clear
+        configureDirectory
+        continue
+
+      elif [ "$userInput" = 'r' ] || [ "$userInput" = 'R' ]; then
+        clear
+        continue
+
+      else
+        echo ''
+        echo 'Invalid selection, try again...'
+        sleep 2
+        continue
+      fi
+    fi
+  done
+}
+
+###########################################################################
+
+if [ "$(id -u)" != 0 ]; then
+  echo 'This script must be run with sudo or as root!'
+  exit 1
+fi
+
+clear
+listImages
