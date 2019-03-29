@@ -1,0 +1,155 @@
+#!/bin/bash
+
+###########################################################################
+#          Title: Kamino
+#         Author: Mike Del Pozzo
+#    Description: An integrity-based disk imaging utility for Linux.
+#        Version: 1.0.0
+#           Date: 16 January 2019
+#        Website: https://github.com/delpozzo/kamino
+#        License: GPLv3 (see LICENSE)
+#
+#    Kamino Copyright (C) 2019 Mike Del Pozzo
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    any later version.
+###########################################################################
+
+masterDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+scriptsDir="$masterDir/res/scripts"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;36m'
+NOCOLOR='\033[0m'
+
+###########################################################################
+
+displaySplash() {
+  echo ''
+  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' ---------------------------'
+  echo ' M A I N   M E N U'
+  echo ''
+}
+
+###########################################################################
+
+aboutKamino() {
+  local userInput
+
+  echo ''
+  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' ---------------------------'
+  echo ' A B O U T'
+  echo ''
+  echo '         Title: Kamino'
+  echo '        Author: Mike Del Pozzo'
+  echo '   Description: An integrity-based disk imaging utility for Linux.'
+  echo '       Version: 1.0.0'
+  echo '          Date: 16 January 2019'
+  echo '       Website: https://github.com/delpozzo/kamino'
+  echo '       License: GPLv3 (see LICENSE)'
+  echo ''
+  echo '   Kamino Copyright (C) 2019 Mike Del Pozzo'
+  echo '   This program is free software: you can redistribute it and/or modify'
+  echo '   it under the terms of the GNU General Public License as published by'
+  echo '   the Free Software Foundation, either version 3 of the License, or'
+  echo '   any later version.'
+  echo ''
+  echo ''
+  echo 'Press enter to return to main menu...'
+
+  read userInput
+}
+
+mainMenu() {
+  local userInput
+
+  while true; do
+    clear
+    displaySplash
+
+    echo 'Welcome to Kamino! Please select an option:'
+    echo ''
+    echo -e ' [ 1 ]\tCapture Image'
+    echo -e ' [ 2 ]\tClone Drive'
+    echo -e ' [ 3 ]\tDeploy Image (Single Drive)'
+    echo -e ' [ 4 ]\tDeploy Image (Multi-Drive)'
+    echo -e ' [ 5 ]\tZeroize (Single Drive)'
+    echo -e ' [ 6 ]\tZeroize (Multi-Drive)'
+    echo -e ' [ M ]\tManage Images'
+    echo -e ' [ A ]\tAbout Kamino'
+    echo -e ' [ Q ]\tExit'
+
+    echo ''
+    echo 'Enter selection: '
+
+    read userInput
+
+    if [ "$userInput" = 'q' ] || [ "$userInput" = 'Q' ]; then
+      clear
+      echo ''
+      echo 'Exiting Kamino...'
+      echo ''
+      exit 0
+
+    elif [ "$userInput" = 'a' ] || [ "$userInput" = 'A' ]; then
+      clear
+      aboutKamino
+      continue
+
+    elif [ "$userInput" = 'm' ] || [ "$userInput" = 'M' ]; then
+      clear
+      bash -c "$scriptsDir/manageImages"
+      continue
+
+    elif [ "$userInput" = '1' ]; then
+      clear
+      bash -c "$scriptsDir/captureImage"
+      continue
+
+    elif [ "$userInput" = '2' ]; then
+      clear
+      bash -c "$scriptsDir/cloneDrive"
+      continue
+
+    elif [ "$userInput" = '3' ]; then
+      clear
+      bash -c "$scriptsDir/deployImage"
+      continue
+
+    elif [ "$userInput" = '4' ]; then
+      clear
+      bash -c "$scriptsDir/deployImageMulti"
+      continue
+
+    elif [ "$userInput" = '5' ]; then
+      clear
+      bash -c "$scriptsDir/zeroizeDrive"
+      continue
+
+    elif [ "$userInput" = '6' ]; then
+      clear
+      bash -c "$scriptsDir/zeroizeDriveMulti"
+      continue
+
+    else
+      echo ''
+      echo 'Invalid selection, try again...'
+      sleep 2
+      continue
+    fi
+  done
+}
+
+###########################################################################
+
+if [ "$(id -u)" != 0 ]; then
+  echo 'This script must be run with sudo or as root!'
+  exit 1
+fi
+
+clear
+mainMenu
