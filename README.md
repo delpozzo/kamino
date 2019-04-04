@@ -135,12 +135,6 @@ tmp_directory /tmp
 # 1 = fastest, lowest compression (produces largest image files)
 # 9 = slowest, highest compression (produces smallest image files)
 compression_level 6
-
-# Root filesystem protection [yes, no]
-# Default: yes
-# Prevents Kamino from listing the drive which the root
-# filesystem is currently mounted to as a selectable option
-protect_root_filesystem yes
 ```
 
 ## License
