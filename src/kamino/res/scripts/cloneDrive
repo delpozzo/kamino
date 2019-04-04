@@ -4,8 +4,8 @@
 #          Title: Kamino: Clone Drive
 #         Author: Mike Del Pozzo
 #    Description: This script will clone one drive to another.
-#        Version: 1.0.0
-#           Date: 16 January 2019
+#        Version: 1.0.1
+#           Date: 03 April 2019
 #        Website: https://github.com/delpozzo/kamino
 #        License: GPLv3 (see LICENSE)
 #
@@ -25,12 +25,6 @@ kaminoConfig="$scriptDir/../kamino.config"
 blockSize=$(grep 'block_size' $kaminoConfig | cut -d ' ' -f2)
 tmpDir=$(grep 'tmp_directory' $kaminoConfig | cut -d ' ' -f2)
 tmpPID="$tmpDir/cloneDrive-$(cat /dev/urandom  |tr -dc 'a-zA-Z0-9' |fold -w 8 |head -n1).pid"
-protectRootFilesystem=$(grep 'protect_root_filesystem' $kaminoConfig | cut -d ' ' -f2)
-if [ "$protectRootFilesystem" = 'no' ]; then 
-  rootPartition=/dev/null
-else
-  rootPartition=$(mount |grep 'on / type' |grep -o 'sd[a-z]')
-fi
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -41,7 +35,7 @@ NOCOLOR='\033[0m'
 
 displaySplash() {
   echo ''
-  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' K A M I N O    [ver. 1.0.1]'
   echo ' ---------------------------'
   echo ' C L O N E   D R I V E'
   echo ''
@@ -103,6 +97,16 @@ cloneDrive() {
 
     elif [ "$userInput" = 'y' ] || [ "$userInput" = 'Y' ]; then
 
+      echo ''
+      echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Waking up $sourceDrive"
+      dd if=$sourceDrive of=/dev/null count=512 > /dev/null 2>&1
+      sleep 2
+
+      echo ''
+      echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Waking up $targetDrive"
+      dd if=$targetDrive of=/dev/null count=512 > /dev/null 2>&1
+      sleep 2
+
       bash -c "$ddCommand & ps -C dd -o pid= > $tmpPID"
 
       while true; do
@@ -159,7 +163,7 @@ targetDrive() {
     displaySplash
 
     IFS=$'\n'
-    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |grep -v "$rootPartition" |grep -v "$sourceDriveExclude" |sort -u))
+    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |grep -v "$sourceDriveExclude" |sort -u))
     unset IFS
 
     if [ ${#driveArray[@]} -gt 0 ]; then
@@ -252,7 +256,7 @@ sourceDrive() {
     displaySplash
 
     IFS=$'\n'
-    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |grep -v "$rootPartition" |sort -u))
+    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |sort -u))
     unset IFS
 
     if [ ${#driveArray[@]} -gt 0 ]; then

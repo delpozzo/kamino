@@ -5,8 +5,8 @@
 #         Author: Mike Del Pozzo
 #    Description: This script will deploy the selected image to multiple
 #                 target drives simultaneously.
-#        Version: 1.0.0
-#           Date: 16 January 2019
+#        Version: 1.0.1
+#           Date: 03 April 2019
 #        Website: https://github.com/delpozzo/kamino
 #        License: GPLv3 (see LICENSE)
 #
@@ -27,12 +27,6 @@ blockSize=$(grep 'block_size' $kaminoConfig | cut -d ' ' -f2)
 tmpDir=$(grep 'tmp_directory' $kaminoConfig | cut -d ' ' -f2)
 tmpPID="$tmpDir/deployImage-$(cat /dev/urandom  |tr -dc 'a-zA-Z0-9' |fold -w 8 |head -n1).pid"
 integrityFail='true'
-protectRootFilesystem=$(grep 'protect_root_filesystem' $kaminoConfig | cut -d ' ' -f2)
-if [ "$protectRootFilesystem" = 'no' ]; then 
-  rootPartition=/dev/null
-else
-  rootPartition=$(mount |grep 'on / type' |grep -o 'sd[a-z]')
-fi
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -43,7 +37,7 @@ NOCOLOR='\033[0m'
 
 displaySplash() {
   echo ''
-  echo ' K A M I N O    [ver. 1.0.0]'
+  echo ' K A M I N O             [ver. 1.0.1]'
   echo ' ------------------------------------'
   echo ' D E P L O Y  I M A G E  -  M U L T I'
   echo ''
@@ -160,6 +154,14 @@ deployImage() {
 
     elif [ "$userInput" = 'y' ] || [ "$userInput" = 'Y' ]; then
 
+      for ((i=0; i<${#targetDriveArray[@]}; i++))
+      do
+        echo ''
+        echo -e "${GREEN}!!!INFO!!!${NOCOLOR} Waking up /dev/${targetDriveArray[i]}"
+        dd if=/dev/${targetDriveArray[i]} of=/dev/null count=512 > /dev/null 2>&1
+        sleep 2
+      done
+
       bash -c "$ddCommand & ps -C dd -o pid= > $tmpPID"
 
       while true; do
@@ -211,7 +213,7 @@ listDrives() {
     displaySplash
 
     IFS=$'\n'
-    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |grep -v "$rootPartition" |sort -u))
+    local driveArray=($(cat /proc/partitions |grep -o 'sd[a-z]' |sort -u))
     unset IFS
 
     if [ ${#driveArray[@]} -gt 1 ]; then
