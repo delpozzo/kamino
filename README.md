@@ -25,7 +25,7 @@ Image File Manager
 
 ### Operating System
 
-Kamino is written in bash and will run on most modern Linux distributions with a kernel version of 4.0 or higher. Kamino relies mainly on `dd`, `gzip`, and `sha256sum` which are bundled with most distros. Kamino has been verified to work on Ubuntu 16.04 thru 18.04, Arch, Debian, and Fedora 25 but will likely run on many others.
+Kamino is written in bash and will run on most modern Linux distributions with a kernel version of 2.6 or higher. Kamino relies mainly on `dd`, `gzip`, and `sha256sum` which are bundled with most distros. Kamino has been verified to work on Ubuntu 16.04 thru 18.04, Arch, Debian, RHEL 6.7, and Fedora 25 but will likely run on many others.
 
 ### Supported Devices
 
