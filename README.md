@@ -7,21 +7,15 @@ Kamino is an integrity-based disk imaging utility for Linux.
 ![Kamino Screenshot](src/screenshots/main_menu.png?raw=true)
 
 ### Features
-Drive-To-Drive Cloning
 
-Capture Image File from Drive
-
-Deploy Image File to a Single Drive
-
-Deploy Image File to Multiple Drives Simultaneously
-
-Wipe a Single Drive
-
-Wipe Multiple Drives Simultaneously
-
-Automated Integrity Checking of Image Files
-
-Image File Manager
++ Drive-To-Drive Cloning
++ Capture Image File from Drive
++ Deploy Image File to a Single Drive
++ Deploy Image File to Multiple Drives Simultaneously
++ Wipe a Single Drive
++ Wipe Multiple Drives Simultaneously
++ Automated Integrity Checking of Image Files
++ Image File Manager
 
 ## Compatibility
 
@@ -55,27 +49,17 @@ Example: `tar -xzvf kamino-1.0.1.tgz -C /home/mike`
 
 ## Usage
 
-[Running Kamino](#running-kamino)
-
-[Capture Image](#capture-image)
-
-[Clone Drive](#clone-drive)
-
-[Deploy Image (Single Drive)](#deploy-image-single-drive)
-
-[Deploy Image (Multi-Drive)](#deploy-image-multi-drive)
-
-[Zeroize (Single Drive)](#zeroize-single-drive)
-
-[Zeroize (Multi-Drive)](#zeroize-multi-drive)
-
-[Manage Images](#manage-images)
-
-[About](#about)
-
-[Exit](#exit)
-
-[kamino.config](#kaminoconfig)
++ [Running Kamino](#running-kamino)
++ [Capture Image](#capture-image)
++ [Clone Drive](#clone-drive)
++ [Deploy Image (Single Drive)](#deploy-image-single-drive)
++ [Deploy Image (Multi-Drive)](#deploy-image-multi-drive)
++ [Zeroize (Single Drive)](#zeroize-single-drive)
++ [Zeroize (Multi-Drive)](#zeroize-multi-drive)
++ [Manage Images](#manage-images)
++ [About](#about)
++ [Exit](#exit)
++ [kamino.config](#kaminoconfig)
 
 ### Running Kamino
 
