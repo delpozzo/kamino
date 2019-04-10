@@ -4,6 +4,8 @@
 
 Kamino is an integrity-based disk imaging utility for Linux.
 
+![Kamino Screenshot](src/screenshots/main_menu.png?raw=true)
+
 ### Features
 Drive-To-Drive Cloning
 
@@ -60,6 +62,8 @@ From a terminal, `cd` into the "kamino" folder. Execute `kamino` via `sudo` or a
 `sudo ./kamino`
 
 Kamino will start and you will be brought to the Main Menu.
+
+![Main Menu Screenshot](src/screenshots/main_menu.png?raw=true)
 
 **Important:** On your first run of Kamino, make sure you set the directory you'd like to use for image files via "Manage Images" by entering `m` into the Main Menu selection followed by `c` to configure the directory.
 
