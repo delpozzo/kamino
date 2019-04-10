@@ -57,7 +57,7 @@ Example: `tar -xzvf kamino-1.0.1.tgz -C /home/mike`
 + [Zeroize (Single Drive)](#zeroize-single-drive)
 + [Zeroize (Multi-Drive)](#zeroize-multi-drive)
 + [Manage Images](#manage-images)
-+ [About](#about)
++ [About Kamino](#about-kamino)
 + [Exit](#exit)
 + [kamino.config](#kaminoconfig)
 
@@ -113,7 +113,7 @@ Enter `6` into the Main Menu selection to wipe multiple target drives at the sam
 
 Enter `m` into the Main Menu selection to manage images and configure which directory you would like to use for image files.
 
-### About
+### About Kamino
 
 Enter `a` into the Main Menu selection to see information about Kamino.
 
