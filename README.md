@@ -55,6 +55,20 @@ Example: `tar -xzvf kamino-1.0.1.tgz -C /home/mike`
 
 ## Usage
 
+[Running Kamino](#running-kamino)
+
+[Capture Image](#capture-image)
+
+[Clone Drive](#clone-drive)
+
+[Deploy Image (Single Drive)](#deploy-image-single-drive)
+
+[Deploy Image (Multi-Drive)](#deploy-image-multi-drive)
+
+[Zeroize (Single Drive)](#zeroize-single-drive)
+
+[Zeroize (Multi-Drive)](#zeroize-multi-drive)
+
 ### Running Kamino
 
 From a terminal, `cd` into the "kamino" folder. Execute `kamino` via `sudo` or as root:
