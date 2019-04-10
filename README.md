@@ -58,7 +58,7 @@ Example: `tar -xzvf kamino-1.0.1.tgz -C /home/mike`
 + [Zeroize (Multi-Drive)](#zeroize-multi-drive)
 + [Manage Images](#manage-images)
 + [About Kamino](#about-kamino)
-+ [Exit](#exit)
++ [Exiting Kamino](#exiting-kamino)
 + [kamino.config](#kaminoconfig)
 
 ### Running Kamino
@@ -117,7 +117,7 @@ Enter `m` into the Main Menu selection to manage images and configure which dire
 
 Enter `a` into the Main Menu selection to see information about Kamino.
 
-### Exit
+### Exiting Kamino
 
 Enter `q` into the Main Menu selection to exit Kamino.
 
