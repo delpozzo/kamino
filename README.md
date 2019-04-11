@@ -97,11 +97,11 @@ The command to capture the image will be displayed based off of your input from 
 
 ![Capture Image Screenshot 3](src/screenshots/capture-3.png?raw=true)
 
-Capturing an image can take anywhere from a minute to many hours depending on the size of the drive you are imaging and the speed of your hardware. During the image capture process, the `dd` command output will display to show the progress.
+Capturing a drive image can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the image capture process, the `dd` command output will display to show the progress.
 
 ![Capture Image Screenshot 4](src/screenshots/capture-4.png?raw=true)
 
-When the image capture is complete, a `sha256` hash will be generated and saved as `<image file>.img.gz.sha256` in  `images_directory`. Press enter to return to the main menu.
+When the image capture is complete, a `sha256` hash will be generated and saved as `<image_name>.img.gz.sha256` in  `images_directory`. Press enter to return to the main menu.
 
 ![Capture Image Screenshot 5](src/screenshots/capture-5.png?raw=true)
 
