@@ -97,7 +97,7 @@ The command to capture the image will be displayed based off of your input from 
 
 ![Capture Image Screenshot 3](src/screenshots/capture-3.png?raw=true)
 
-Capturing a drive image can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the image capture process, the `dd` command output will display to show the progress.
+Capturing a drive image can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the image capture process, the `dd` status output will display to show the progress.
 
 ![Capture Image Screenshot 4](src/screenshots/capture-4.png?raw=true)
 
@@ -121,7 +121,7 @@ The command to clone the drive will be displayed based off of your input from th
 
 ![Clone Drive Screenshot 3](src/screenshots/clone-3.png?raw=true)
 
-Cloning one drive to another can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the drive cloning process, the `dd` command output will display to show the progress.
+Cloning one drive to another can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the drive cloning process, the `dd` status output will display to show the progress.
 
 ![Clone Drive Screenshot 4](src/screenshots/clone-4.png?raw=true)
 
@@ -145,7 +145,7 @@ An integrity check will be performed on the selected image file by running `sha2
 
 ![Deploy Image Screenshot 3](src/screenshots/deploy-3.png?raw=true)
 
-Deploying an image file to a drive can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` command output will display to show the progress.
+Deploying an image file to a drive can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` status output will display to show the progress.
 
 ![Deploy Image Screenshot 4](src/screenshots/deploy-4.png?raw=true)
 
@@ -171,7 +171,7 @@ An integrity check will be performed on the selected image file by running `sha2
 
 ![Multi Deploy Screenshot 3](src/screenshots/deploy_multi-3.png?raw=true)
 
-Deploying an image file to multiple drives can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` command output will display to show the progress.
+Deploying an image file to multiple drives can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` status output will display to show the progress.
 
 ![Multi Deploy Screenshot 4](src/screenshots/deploy_multi-4.png?raw=true)
 
@@ -183,11 +183,43 @@ When the image deploy is complete an `!!!INFO!!!` message will display. Press en
 
 Enter `5` into the Main Menu selection to wipe a single target drive by writing all zeroes.
 
+A list of available drives will be displayed. Choose a drive to wipe by entering the corresponding number into the selection prompt. In the example below, `/dev/sdd` is selected by entering `4`
+
+![Zeroize Screenshot 1](src/screenshots/zeroize-1.png?raw=true)
+
+The command to wipe the drive will be displayed based off of your input from the previous step. Carefully review the output from this screen and enter `y` to begin the drive wipe process.
+
+![Zeroize Screenshot 2](src/screenshots/zeroize-2.png?raw=true)
+
+Wiping a drive can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the wiping process, the `dd` status output will display to show the progress.
+
+![Zeroize Screenshot 3](src/screenshots/zeroize-2.png?raw=true)
+
+When the drive wipe is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
+
+![Zeroize Screenshot 4](src/screenshots/zeroize-4.png?raw=true)
+
 ### Zeroize (Multi-Drive)
 
 Enter `6` into the Main Menu selection to wipe multiple target drives at the same time by writing all zeroes.
 
 **Note:** For multi-drive operations, the target drives you select must all be the same size.
+
+A list of available drives will be displayed. Choose `two or more` drives to wipe by entering the corresponding numbers into the selection prompt. Your input should be **comma-separated with no spaces**. In the example below, `/dev/sdb`, `/dev/sdc`, and `/dev/sdd` are selected by entering `2,3,4`
+
+![Multi Zeroize Screenshot 1](src/screenshots/zeroize_multi-1.png?raw=true)
+
+The command to wipe the drives will be displayed based off of your input from the previous step. Carefully review the output from this screen and enter `y` to begin the drive wipe process.
+
+![Multi Zeroize Screenshot 2](src/screenshots/zeroize_multi-2.png?raw=true)
+
+Wiping multiple drives can take anywhere from a minute to many hours depending on the size of the drives and the speed of your hardware. During the wiping process, the `dd` status output will display to show the progress.
+
+![Multi Zeroize Screenshot 3](src/screenshots/zeroize_multi-2.png?raw=true)
+
+When the drive wipe is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
+
+![Multi Zeroize Screenshot 4](src/screenshots/zeroize_multi-4.png?raw=true)
 
 ### Manage Images
 
@@ -200,7 +232,6 @@ Enter `a` into the Main Menu selection to see information about Kamino.
 ### Exiting Kamino
 
 Enter `q` into the Main Menu selection to exit Kamino.
-
 
 ### kamino.config
 
