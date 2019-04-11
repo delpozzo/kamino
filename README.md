@@ -193,7 +193,7 @@ The command to wipe the drive will be displayed based off of your input from the
 
 Wiping a drive can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the wiping process, the `dd` status output will display to show the progress.
 
-![Zeroize Screenshot 3](src/screenshots/zeroize-2.png?raw=true)
+![Zeroize Screenshot 3](src/screenshots/zeroize-3.png?raw=true)
 
 When the drive wipe is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
 
@@ -215,7 +215,7 @@ The command to wipe the drives will be displayed based off of your input from th
 
 Wiping multiple drives can take anywhere from a minute to many hours depending on the size of the drives and the speed of your hardware. During the wiping process, the `dd` status output will display to show the progress.
 
-![Multi Zeroize Screenshot 3](src/screenshots/zeroize_multi-2.png?raw=true)
+![Multi Zeroize Screenshot 3](src/screenshots/zeroize_multi-3.png?raw=true)
 
 When the drive wipe is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
 
