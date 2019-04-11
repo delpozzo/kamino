@@ -225,6 +225,26 @@ When the drive wipe is complete an `!!!INFO!!!` message will display. Press ente
 
 Enter `m` into the Main Menu selection to manage images and configure which directory you would like to use for image files.
 
+![Manage Images Screenshot 1](src/screenshots/manage-1.png?raw=true)
+
+Enter `c` into the prompt to configure the images directory for Kamino. In the example below, the directory `/home/mike/images` is entered.
+
+**Note:** A trailing slash `/` at the end of the path is not necessary.
+
+![Manage Images Screenshot 2](src/screenshots/manage-2.png?raw=true)
+
+Choose an image to manage by entering the corresponding number into the selection prompt. In the example below, the `raspberry-pi-backup.img.gz` image file was selected by entering `3` from the Manage Images screen.
+
+![Manage Images Screenshot 3](src/screenshots/manage-3.png?raw=true)
+
+Enter `v` into the prompt to manually verify the integrity of the image file.
+
+![Manage Images Screenshot 4](src/screenshots/manage-4.png?raw=true)
+
+Enter `d` into the prompt to delete the image file.
+
+![Manage Images Screenshot 5](src/screenshots/manage-5.png?raw=true)
+
 ### About Kamino
 
 Enter `a` into the Main Menu selection to see information about Kamino.
