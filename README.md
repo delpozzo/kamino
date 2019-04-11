@@ -89,7 +89,7 @@ A list of available drives will be displayed. Choose a `source drive` by enterin
 
 ![Capture Image Screenshot 1](src/screenshots/capture-1.png?raw=true)
 
-Enter a name for the image file. Do not include any file extensions since `.img.gz` will be automatically appended.
+Enter a name for the image file. Do not include any file extensions since `.img.gz` will be automatically appended. In the example below, the name `raspberry-pi-backup` is entered.
 
 ![Capture Image Screenshot 2](src/screenshots/capture-2.png?raw=true)
 
@@ -158,6 +158,26 @@ When the image deploy is complete an `!!!INFO!!!` message will display. Press en
 Enter `4` into the Main Menu selection to deploy an image file to multiple target drives at the same time.
 
 **Note:** For multi-drive operations, the target drives you select must all be the same size.
+
+A list of available images from your `images_directory` will be displayed. Choose a `source image` by entering the corresponding number into the selection prompt. In the example below, the `ubuntu_laptop-20190103.img.gz` image file is selected by entering `2`
+
+![Multi Deploy Screenshot 1](src/screenshots/deploy_multi-1.png?raw=true)
+
+Next, choose `two or more target drives` that you wish to deploy the image to by entering the corresponding numbers into the selection prompt. Your input should be **comma-separated with no spaces**. In the example below, `/dev/sdb`, `/dev/sdc`, and `/dev/sdd` are selected by entering `2,3,4`
+
+![Multi Deploy Screenshot 2](src/screenshots/deploy_multi-2.png?raw=true)
+
+An integrity check will be performed on the selected image file by running `sha256sum` and ensuring the output matches the original hash total of the image. If the integrity check passes, the command to deploy the image will be displayed based off of your input from the previous steps. Carefully review the output from this screen and enter `y` to begin the image deploy process.
+
+![Multi Deploy Screenshot 3](src/screenshots/deploy_multi-3.png?raw=true)
+
+Deploying an image file to multiple drives can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` command output will display to show the progress.
+
+![Multi Deploy Screenshot 4](src/screenshots/deploy_multi-4.png?raw=true)
+
+When the image deploy is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
+
+![Multi Deploy Screenshot 5](src/screenshots/deploy_multi-5.png?raw=true)
 
 ### Zeroize (Single Drive)
 
