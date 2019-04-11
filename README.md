@@ -83,7 +83,7 @@ chmod +x res/scripts/*
 
 ### Capture Image
 
-Enter `1` into the Main Menu selection to capture an image from a drive attached to the system.
+Enter `1` into the Main Menu selection to capture an image of a drive attached to the system.
 
 A list of available drives will be displayed. Choose a `source drive` by entering the corresponding number into the selection prompt. In the example below, `/dev/sdg` is selected by entering `5`
 
