@@ -125,13 +125,33 @@ Cloning one drive to another can take anywhere from a minute to many hours depen
 
 ![Clone Drive Screenshot 4](src/screenshots/clone-4.png?raw=true)
 
-When the drive clone is complete a success message will display. Press enter to return to the main menu.
+When the drive clone is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
 
 ![Clone Drive Screenshot 5](src/screenshots/clone-5.png?raw=true)
 
 ### Deploy Image (Single Drive)
 
-Enter `3` into the Main Menu selection to deploy an image file to a single target drive. 
+Enter `3` into the Main Menu selection to deploy an image file to a single target drive.
+
+A list of available images from your `images_directory` will be displayed. Choose a `source image` by entering the corresponding number into the selection prompt. In the example below, the `ubuntu_laptop-20190103.img.gz` image file is selected by entering `2`
+
+![Deploy Image Screenshot 1](src/screenshots/deploy-1.png?raw=true)
+
+Next, choose a `target drive` that you wish to deploy the image to by entering the corresponding number into the selection prompt. In the example below, `/dev/sdc` is selected by entering `3`
+
+![Deploy Image Screenshot 2](src/screenshots/deploy-2.png?raw=true)
+
+An integrity check will be performed on the selected image file by running `sha256sum` and ensuring the output matches the original hash total of the image. If the integrity check passes, the command to deploy the image will be displayed based off of your input from the previous steps. Carefully review the output from this screen and enter `y` to begin the image deploy process.
+
+![Deploy Image Screenshot 3](src/screenshots/deploy-3.png?raw=true)
+
+Deploying an image file to a drive can take anywhere from a minute to many hours depending on the size of the image file and the speed of your hardware. During the image deploy process, the `dd` command output will display to show the progress.
+
+![Deploy Image Screenshot 4](src/screenshots/deploy-4.png?raw=true)
+
+When the image deploy is complete an `!!!INFO!!!` message will display. Press enter to return to the main menu.
+
+![Deploy Image Screenshot 5](src/screenshots/deploy-5.png?raw=true)
 
 ### Deploy Image (Multi-Drive)
 
