@@ -85,25 +85,25 @@ chmod +x res/scripts/*
 
 Enter `1` into the Main Menu selection to capture an image from a drive attached to the system.
 
+A list of available drives will be displayed. Choose a `source drive` by entering the corresponding number into the selection prompt. In the example below, `/dev/sdg` is selected by entering `5`
+
 ![Capture Image Screenshot 1](src/screenshots/capture-1.png?raw=true)
-
-A list of available drives will be displayed. Choose a `source drive` by entering the corresponding number into the selection prompt. In the above example, `/dev/sdg` is selected by entering `5`
-
-![Capture Image Screenshot 2](src/screenshots/capture-2.png?raw=true)
 
 Enter a name for the image file. Do not include any file extensions since `.img.gz` will be automatically appended.
 
-![Capture Image Screenshot 3](src/screenshots/capture-3.png?raw=true)
+![Capture Image Screenshot 2](src/screenshots/capture-2.png?raw=true)
 
 The command to capture the image will be displayed based off of your input from the previous steps. Carefully review the output from this screen and enter `y` to begin the image capture process.
 
-![Capture Image Screenshot 4](src/screenshots/capture-4.png?raw=true)
+![Capture Image Screenshot 3](src/screenshots/capture-3.png?raw=true)
 
 Capturing an image can take anywhere from a minute to many hours depending on the size of the drive you are imaging and the speed of your hardware. During the image capture process, the `dd` command output will display to show the progress.
 
-![Capture Image Screenshot 5](src/screenshots/capture-5.png?raw=true)
+![Capture Image Screenshot 4](src/screenshots/capture-4.png?raw=true)
 
-When the image capture is complete, a `sha256` hash will be generated and saved as `<image file>.img.gz.sha256` in  `images_directory`.
+When the image capture is complete, a `sha256` hash will be generated and saved as `<image file>.img.gz.sha256` in  `images_directory`. Press enter to return to the main menu.
+
+![Capture Image Screenshot 5](src/screenshots/capture-5.png?raw=true)
 
 ### Clone Drive
 
