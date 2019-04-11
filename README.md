@@ -101,7 +101,7 @@ Capturing a drive image can take anywhere from a minute to many hours depending 
 
 ![Capture Image Screenshot 4](src/screenshots/capture-4.png?raw=true)
 
-When the image capture is complete, a `sha256` hash will be generated and saved as `<image_name>.img.gz.sha256` in your `images_directory`. Press enter to return to the main menu.
+When the image capture is complete, a `sha256sum` will be generated and saved as `<image_name>.img.gz.sha256` in your `images_directory`. Press enter to return to the main menu.
 
 ![Capture Image Screenshot 5](src/screenshots/capture-5.png?raw=true)
 
