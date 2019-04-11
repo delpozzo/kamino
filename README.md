@@ -107,7 +107,27 @@ When the image capture is complete, a `sha256sum` will be generated and saved as
 
 ### Clone Drive
 
-Enter `2` into the Main Menu selection to clone one drive directly to another. 
+Enter `2` into the Main Menu selection to clone one drive directly to another.
+
+A list of available drives will be displayed. Choose a `source drive` by entering the corresponding number into the selection prompt. In the example below, `/dev/sdb` is selected by entering `2`
+
+![Clone Drive Screenshot 1](src/screenshots/clone-1.png?raw=true)
+
+Next, choose a `target drive` by entering the corresponding number into the selection prompt. In the example below, `/dev/sdc` is selected by entering `2`
+
+![Clone Drive Screenshot 2](src/screenshots/clone-2.png?raw=true)
+
+The command to clone the drive will be displayed based off of your input from the previous steps. Carefully review the output from this screen and enter `y` to begin the drive cloning process.
+
+![Clone Drive Screenshot 3](src/screenshots/clone-3.png?raw=true)
+
+Cloning one drive to another can take anywhere from a minute to many hours depending on the size of the drive and the speed of your hardware. During the drive cloning process, the `dd` command output will display to show the progress.
+
+![Clone Drive Screenshot 4](src/screenshots/clone-4.png?raw=true)
+
+When the drive clone is complete a success message will display. Press enter to return to the main menu.
+
+![Clone Drive Screenshot 5](src/screenshots/clone-5.png?raw=true)
 
 ### Deploy Image (Single Drive)
 
