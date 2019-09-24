@@ -9,3 +9,6 @@ Version 1.0.1
 
 **sha256sum:** `4eac80e200682cfe58bf815cdc1e5cccdb947738ee729d009598aaa768d897da`
 
+### Live CD/DVD
+
+For more information on the experimental Kamino Live CD/DVD .iso, visit the [Kamino Live CD/DVD Release Page](https://github.com/delpozzo/kamino/releases/tag/v1.0.1).
