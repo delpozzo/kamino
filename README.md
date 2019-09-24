@@ -60,6 +60,7 @@ Example: `tar -xzvf kamino-1.0.1.tgz -C /home/mike`
 + [About Kamino](#about-kamino)
 + [Exiting Kamino](#exiting-kamino)
 + [kamino.config](#kaminoconfig)
++ [Live CD/DVD](#live-cddvd)
 
 ### Running Kamino
 
@@ -277,6 +278,10 @@ tmp_directory /tmp
 # 9 = slowest, highest compression (produces smallest image files)
 compression_level 6
 ```
+
+### Live CD/DVD
+
+For more information on the experimental Kamino Live CD/DVD .iso, visit the [Kamino Live CD/DVD Release Page](https://github.com/delpozzo/kamino/releases/tag/v1.0.1).
 
 ## License
 
